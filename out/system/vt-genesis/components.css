@@ -1166,7 +1166,7 @@
 }
 
 .vt-prog-row .vt-clients {
-  gap: 18px;
+  gap: 14px;
 }
 
 .vt-clients p {
@@ -1176,7 +1176,7 @@
 
 .vt-clients img {
   width: auto;
-  height: 42px;
+  height: 38px;
 }
 
 .vt-prog-row .vt-box {
@@ -1585,6 +1585,7 @@
 
 .dk-slide--cover .dk-lead {
   max-width: 44ch;
+  text-wrap: balance;
   color: var(--vt-accent-deep);
   font: 400 22px/1.45 var(--vt-font-mono);
 }
