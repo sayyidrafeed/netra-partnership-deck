@@ -1,0 +1,227 @@
+/* create-deck runtime: the 1280x720 frame, screen presentation and print pages.
+   Visual styling lives in the design systems; this file only handles geometry. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--dk-stage, #111);
+  overflow: hidden;
+}
+
+.dk-deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.dk-slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.dk-slide.is-active {
+  visibility: visible;
+}
+
+.dk-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  transform: translate(-50%, -50%) scale(var(--dk-scale, 1));
+  transform-origin: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.dk-body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Controls ------------------------------------------------------------------ */
+
+.dk-controls {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgb(20 20 20 / 0.72);
+  color: #fff;
+  font: 500 13px/1 system-ui, sans-serif;
+  backdrop-filter: blur(8px);
+  transition: opacity 0.2s ease;
+}
+
+.dk-idle .dk-controls:not(:focus-within) {
+  opacity: 0;
+}
+
+.dk-controls button {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dk-controls button:hover {
+  background: rgb(255 255 255 / 0.14);
+}
+
+.dk-controls button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+}
+
+.dk-counter {
+  min-width: 52px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Print: one slide per page, no transforms, no motion, default states. ------- */
+
+@page {
+  size: 1280px 720px;
+  margin: 0;
+}
+
+@media print {
+  html,
+  body {
+    height: auto;
+    overflow: visible;
+    background: none;
+  }
+
+  .dk-deck {
+    width: auto;
+    height: auto;
+  }
+
+  .dk-slide {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 1280px;
+    height: 720px;
+    visibility: visible;
+    break-after: page;
+    break-inside: avoid;
+    overflow: hidden;
+  }
+
+  .dk-slide:last-child {
+    break-after: auto;
+  }
+
+  .dk-canvas {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+
+  .dk-controls,
+  .dk-screen-only {
+    display: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+@media screen {
+  .dk-print-only {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Speaker notes: never on the slide or in the PDF; shown in a panel under the slide
+   in notes view (press n, or open the deck with ?notes). */
+
+.dk-notes {
+  display: none !important;
+}
+
+.dk-notes-panel {
+  display: none;
+}
+
+@media screen {
+  .dk-show-notes .dk-deck {
+    height: 68vh;
+    height: 68dvh;
+  }
+
+  .dk-show-notes .dk-notes-panel {
+    position: fixed;
+    inset: 68vh 0 0 0;
+    inset: 68dvh 0 0 0;
+    z-index: 5;
+    display: block;
+    overflow: auto;
+    padding: 20px 32px 72px;
+    border-top: 1px solid rgb(255 255 255 / 0.18);
+    background: #141416;
+    color: #f2f2f2;
+    font: 400 18px/1.5 system-ui, sans-serif;
+  }
+
+  .dk-notes-panel:empty::before {
+    content: "Tidak ada catatan untuk slide ini.";
+    opacity: 0.6;
+  }
+
+  .dk-notes-panel > :first-child {
+    margin-top: 0;
+  }
+}

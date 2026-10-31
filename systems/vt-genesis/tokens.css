@@ -1,0 +1,64 @@
+/* Layer 1: copied from the veterantech system (create-deck/systems/veterantech, 31 Oct 2026) so this deck can drop Space Grotesk. */
+/* veterantech: tokens extracted from the Veterantech compro repo, layered on base.
+   Source of each value: README.md "Sources". (inferred) marks choices made for slides
+   that the repo does not state. */
+:root {
+  --dk-stage: #0e0e16;
+  --dk-bg: #fbfbfb;            /* --color-panel-2; DESIGN.md: near-white, not pure #fff */
+  --dk-surface: #f9f9f9;       /* --color-panel */
+  --dk-ink: #0e0e16;           /* --color-foreground */
+  --dk-muted: #606060;         /* --color-muted-foreground */
+  --dk-line: #e0e0e0;          /* --color-border-2 */
+  --dk-accent: #c65864;        /* --color-accent */
+  --dk-accent-ink: #ffffff;    /* --color-accent-foreground */
+  --dk-hl-bg: #f9e9eb;         /* --vt-selected-tint (admin theme) */
+  --dk-chart-off: #ededed;     /* --color-border */
+  --dk-chart-on: #a8a8a8;      /* (inferred) neutral that reads against #ededed */
+
+  --vt-grad: linear-gradient(180deg, #efa17a 0%, #c65864 100%);   /* --grad */
+  --vt-grad-h: linear-gradient(90deg, #ed9d78 0%, #c65864 100%);  /* --grad-h */
+  --vt-hatch: repeating-linear-gradient(135deg, #c45f69 0 8px, #f1efef 8px 9px); /* .hatch */
+  --vt-accent-deep: #9a3742;   /* --color-accent-deep */
+  --vt-keycap: #a44e58;        /* --color-border-accent */
+  --vt-hairline: #f1efef;      /* --color-hairline */
+  --vt-corner: 4px;            /* .pc border width */
+  --vt-corner-len: 12px;       /* .pc size */
+
+  --dk-font-display: "Space Grotesk", system-ui, sans-serif;
+  --dk-font-text: "Space Grotesk", system-ui, sans-serif;
+  --dk-font-num: "Space Grotesk", system-ui, sans-serif;
+  --vt-font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --dk-weight-display: 500;    /* (inferred) */
+  --dk-size-cover: 64px;
+  --dk-size-title: 40px;
+  --dk-size-stat: 96px;
+
+  --dk-pad-top: 48px;
+  --dk-pad-bottom: 28px;       /* (inferred) source lines clear the footer rule */         /* (inferred) room for wide content below the title */
+  --dk-radius: 0px;            /* square corners throughout the site */
+}
+
+/* Layer 2: vt-genesis tokens. */
+/* vt-genesis: the profile-deck look on top of veterantech. */
+:root {
+  --dk-bg: #f9ede7;
+  --dk-surface: #fffaf8;
+  --dk-line: #edd6cf;
+  --dk-hl-bg: #fbe3df;
+  --vt-line-accent: #e4aea7;
+  --vt-shadow: #efc4bd;
+  --vt-accent-deep: #9a3742;
+  --vt-wash: radial-gradient(120% 100% at 50% 35%, #fdf5f1 0%, #f9ebe4 55%, #f3d9cf 100%);
+  --vt-gap: 20px;
+  --vt-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --vt-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --dk-font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --dk-font-text: "Plus Jakarta Sans", system-ui, sans-serif;
+  --dk-font-num: "Plus Jakarta Sans", system-ui, sans-serif;
+  --dk-weight-display: 700;
+  --dk-size-title: 36px;
+  --dk-size-stat: 50px;
+  --dk-pad-top: 92px;
+  --dk-pad-bottom: 24px;
+}

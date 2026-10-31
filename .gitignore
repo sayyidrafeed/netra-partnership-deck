@@ -1,0 +1,5 @@
+.DS_Store
+.vercel
+out/_render/
+out/check.json
+plan.md

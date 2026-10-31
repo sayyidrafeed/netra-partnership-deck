@@ -1,0 +1,35 @@
+/* base: neutral tokens. Other systems override these on :root. */
+:root {
+  /* colour */
+  --dk-stage: #1b1b1d;
+  --dk-bg: #ffffff;
+  --dk-surface: #f3f3f1;
+  --dk-ink: #18181a;
+  --dk-muted: #6a6a70;
+  --dk-line: #d9d9dc;
+  --dk-accent: #2f5bd3;
+  --dk-accent-ink: #ffffff;
+  --dk-hl-bg: #e7edfb;
+  --dk-chart-off: #e3e3e6;
+  --dk-chart-on: #8d8d94;
+
+  /* type */
+  --dk-font-display: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --dk-font-text: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --dk-font-num: var(--dk-font-display);
+  --dk-weight-display: 700;
+  --dk-size-cover: 68px;
+  --dk-size-title: 42px;
+  --dk-size-lead: 24px;
+  --dk-size-text: 20px;
+  --dk-size-small: 16px;
+  --dk-size-stat: 84px;
+
+  /* space and shape */
+  --dk-pad-x: 80px;
+  --dk-pad-top: 60px;
+  --dk-pad-bottom: 20px;
+  --dk-gap: 24px;
+  --dk-foot-h: 56px;
+  --dk-radius: 10px;
+}

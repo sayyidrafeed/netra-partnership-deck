@@ -1,0 +1,1851 @@
+/* Layer 1: copied from the veterantech system (create-deck/systems/veterantech, 31 Oct 2026). */
+/* veterantech: overrides and components. New classes use the vt- prefix. */
+
+/* Mono technical type for labels, footer and sources. */
+.dk-label {
+  align-self: flex-start;
+  padding: 6px 12px;
+  border: 1px solid var(--dk-line);
+  border-bottom-width: 3px;
+  background: #ffffff;
+  color: var(--dk-ink);
+  font-family: var(--vt-font-mono);
+  font-size: 16px;
+  font-weight: 400;  /* only the 400 mono face is bundled; the site uses 500 */
+  letter-spacing: 0.03em;
+}
+
+.dk-title {
+  letter-spacing: -0.025em;
+}
+
+.dk-foot,
+.dk-source,
+.dk-table th,
+.dk-figure figcaption {
+  font-family: var(--vt-font-mono);
+  letter-spacing: 0.02em;
+}
+
+.dk-foot {
+  font-size: 12px;
+  text-transform: uppercase;
+  border-top-color: var(--vt-hairline);
+}
+
+.dk-track li.is-current {
+  color: var(--dk-ink);
+  box-shadow: inset 0 -3px 0 var(--dk-accent);
+}
+
+.dk-brand img {
+  height: 30px;
+}
+
+.dk-list li::marker {
+  content: "■  ";
+  color: var(--dk-accent);
+  font-size: 0.7em;
+}
+
+/* Notes use the keycap edge from the site's Badge and Button. */
+.dk-note {
+  border: 1px solid var(--dk-line);
+  border-left-width: 3px;
+  border-bottom-width: 3px;
+  background: #ffffff;
+}
+
+/* Highlight: gradient fills, accent text, pixel corner brackets on the focal block. */
+.vt-corners,
+.dk-stat.dk-hl {
+  --c: var(--dk-accent);
+  --w: var(--vt-corner);
+  --l: var(--vt-corner-len);
+  padding: 20px 22px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) var(--w),
+    linear-gradient(var(--c), var(--c)) top left / var(--w) var(--l),
+    linear-gradient(var(--c), var(--c)) top right / var(--l) var(--w),
+    linear-gradient(var(--c), var(--c)) top right / var(--w) var(--l),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) var(--w),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--w) var(--l),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) var(--w),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--w) var(--l);
+  background-repeat: no-repeat;
+}
+
+.dk-stat {
+  padding: 20px 22px;
+  border-top: 0;
+}
+
+.dk-stat__value {
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+.dk-stat.dk-hl .dk-stat__value,
+.vt-grad-text {
+  background: var(--vt-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dk-table tr.dk-hl td:first-child {
+  box-shadow: inset 4px 0 0 var(--dk-accent);
+}
+
+.dk-table th {
+  border-bottom-width: 1px;
+  font-weight: 500;
+}
+
+.dk-bar.dk-hl .dk-bar__track::before {
+  background: var(--vt-grad-h);
+}
+
+.dk-units i {
+  border-radius: 0;
+}
+
+.dk-units.dk-hl i.is-on {
+  background: var(--vt-grad);
+}
+
+/* Empty or unknown: the site's diagonal hatch. */
+.vt-hatch,
+.dk-bar.vt-unknown .dk-bar__track,
+.dk-units i.vt-unknown {
+  background: var(--vt-hatch);
+}
+
+.vt-empty {
+  display: inline-block;
+  padding: 2px 8px;
+  background: var(--vt-hatch);
+  color: var(--dk-ink);
+  font-family: var(--vt-font-mono);
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.vt-empty > span {
+  padding: 0 4px;
+  background: #ffffff;
+}
+
+.vt-placeholder {
+  display: grid;
+  place-items: center;
+  background: rgb(0 0 0 / 0.2);
+  color: #ffffff;
+  font-family: var(--vt-font-mono);
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Images keep square corners and a hairline frame. */
+.dk-figure img {
+  border: 1px solid var(--dk-line);
+}
+
+/* Segmented control as keycaps. */
+.dk-segmented {
+  border-radius: 0;
+  background: transparent;
+  gap: 8px;
+  padding: 0;
+}
+
+.dk-segmented button {
+  border: 1px solid #1a1a1a;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+  border-radius: 0;
+  background: #ffffff;
+  color: var(--dk-ink);
+  font-family: var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.dk-segmented button[aria-pressed="true"] {
+  border-color: var(--vt-keycap);
+  background: var(--vt-grad);
+  color: #ffffff;
+  box-shadow: none;
+}
+
+/* Cover: hairline grid, large gradient mark on the right. */
+.dk-slide--cover .dk-canvas,
+.dk-slide--divider .dk-canvas,
+.dk-slide--closing .dk-canvas {
+  background-color: var(--dk-bg);
+  background-image:
+    linear-gradient(var(--vt-hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--vt-hairline) 1px, transparent 1px);
+  background-size: 80px 80px;
+  background-position: -1px -1px;
+  color: var(--dk-ink);
+}
+
+.dk-slide--cover .dk-canvas::after {
+  content: "";
+  position: absolute;
+  top: 160px;
+  right: 120px;
+  width: 320px;
+  height: 298px;
+  background: url("assets/logo.svg") center / contain no-repeat;
+}
+
+.dk-slide--cover .dk-body {
+  padding-right: 520px;
+}
+
+.dk-slide--cover .dk-title {
+  font-weight: 500;
+}
+
+/* Divider: same light canvas, accent label, pixel bricks bottom-right. */
+.dk-slide--divider .dk-label {
+  border-color: var(--dk-accent);
+  background: var(--dk-accent);
+  color: #ffffff;
+}
+
+.dk-slide--divider .dk-lead {
+  color: var(--dk-muted);
+}
+
+.dk-slide--divider .dk-foot {
+  border-color: var(--vt-hairline);
+  opacity: 1;
+}
+
+.dk-slide--divider .dk-track li.is-current {
+  color: var(--dk-ink);
+  box-shadow: inset 0 -3px 0 var(--dk-accent);
+}
+
+.dk-slide--divider .dk-brand img {
+  filter: none;
+}
+
+.dk-slide--divider .dk-canvas::after,
+.dk-slide--closing .dk-canvas::after {
+  content: "";
+  position: absolute;
+  right: 80px;
+  bottom: 120px;
+  width: 160px;
+  height: 80px;
+  background: url("assets/bricks.svg") center / contain no-repeat;
+}
+
+/* Chrome's PDF output draws a hairline from background-clip: text; print solid accent instead. */
+@media print {
+  .dk-stat.dk-hl .dk-stat__value,
+  .vt-grad-text {
+    background: none;
+    color: var(--dk-accent);
+  }
+}
+
+/* ===== Deck chrome: lockup, full-width chapter tracker, page number. ===== */
+
+.dk-brand {
+  gap: 10px;
+}
+
+.dk-brand img {
+  height: 24px;
+}
+
+.dk-brand__name {
+  color: var(--dk-ink);
+  font: 600 17px/1 var(--dk-font-display);
+  letter-spacing: -0.02em;
+}
+
+.dk-foot {
+  gap: 28px;
+  margin: 0;
+  padding: 0 var(--dk-pad-x);
+  border-top: 1px solid var(--dk-line);
+  counter-reset: vt-chapter;
+}
+
+.dk-canvas:has(.dk-brand img) .dk-foot {
+  padding-left: calc(var(--dk-pad-x) + 172px);
+}
+
+.dk-track {
+  align-self: stretch;
+  gap: 6px;
+}
+
+.dk-track li {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  margin-top: -1px;
+  border-top: 3px solid var(--dk-chart-off);
+  color: var(--dk-muted);
+  counter-increment: vt-chapter;
+}
+
+.dk-track li::before {
+  content: "0" counter(vt-chapter);
+  color: inherit;
+}
+
+/* Chapters already presented read as done, the current one as pressed. */
+.dk-track li:has(~ li.is-current) {
+  border-top-color: var(--dk-chart-on);
+}
+
+.dk-track li.is-current,
+.dk-slide--divider .dk-track li.is-current {
+  border-top: 3px solid transparent;
+  border-image: var(--vt-grad-h) 1;
+  color: var(--dk-ink);
+  font-weight: 400;
+  box-shadow: none;
+}
+
+.dk-track li.is-current::after {
+  content: "";
+  order: -1;
+  width: 8px;
+  height: 8px;
+  background: var(--dk-accent);
+}
+
+.dk-pageno {
+  color: var(--dk-ink);
+}
+
+/* ===== Focal highlight on a headline phrase: a gradient block, not coloured text. ===== */
+
+.dk-title .dk-hl {
+  padding: 0 0.14em 0.04em;
+  background: var(--vt-grad);
+  color: #ffffff;
+  font-weight: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ===== Cover: hairline grid, title with the block highlight, large logo mark. ===== */
+
+.dk-slide--cover .dk-canvas::after {
+  top: 64px;
+  right: 80px;
+  width: 260px;
+  height: 242px;
+}
+
+.dk-slide--cover .dk-body {
+  justify-content: flex-end;
+  padding-right: var(--dk-pad-x);
+  padding-bottom: 64px;
+}
+
+.dk-slide--cover .dk-title {
+  max-width: 21em;
+  font-size: 54px;
+  line-height: 1.14;
+}
+
+.dk-slide--cover .dk-lead {
+  max-width: 56ch;
+}
+
+.vt-cover-meta {
+  display: flex;
+  gap: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--dk-line);
+  color: var(--dk-muted);
+  font: 400 16px/1.4 var(--vt-font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.vt-cover-meta b {
+  display: block;
+  color: var(--dk-ink);
+  font-weight: 400;
+}
+
+/* ===== Divider set piece: big real photo on the right, chapter contents on the left. ===== */
+
+.dk-slide--divider:has(.dk-media-panel) .dk-canvas::after {
+  content: none;
+}
+
+.dk-slide--divider .dk-body:has(> .dk-media-panel) {
+  justify-content: center;
+  gap: 28px;
+}
+
+.dk-slide--divider .dk-title {
+  font-size: 56px;
+  line-height: 1.06;
+}
+
+.dk-media-panel {
+  border-left: 1px solid var(--dk-line);
+  background: var(--vt-hatch-soft, repeating-linear-gradient(135deg, #fbfbfb 0 6px, #ededed 6px 8px));
+}
+
+.dk-media-panel.is-contain img {
+  object-fit: contain;
+  padding: 40px;
+}
+
+.dk-media-panel figcaption {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  max-width: 85%;
+  padding: 6px 12px;
+  border: 1px solid var(--dk-line);
+  border-bottom-width: 3px;
+  background: #ffffff;
+  color: var(--dk-ink);
+  font: 400 16px/1.4 var(--vt-font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.dk-contents {
+  border-top-color: var(--dk-ink);
+}
+
+.dk-contents li {
+  border-bottom-color: var(--dk-line);
+  font-size: 17px;
+}
+
+.dk-contents__no,
+.dk-contents__page {
+  font-family: var(--vt-font-mono);
+  font-size: 16px;
+}
+
+/* ===== Stepper as keycaps (Button.tsx): 1px border with a 3px bottom-left edge; the
+   pressed step flips the edge to top-right and takes the gradient. ===== */
+
+.dk-steps {
+  gap: 40px;
+}
+
+.dk-steps li {
+  position: relative;
+}
+
+.dk-steps li + li::before {
+  content: "";
+  position: absolute;
+  left: -32px;
+  top: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+  background: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+}
+
+.dk-step {
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 16px 12px 18px;
+  border: 1px solid #1a1a1a;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+  background: #ffffff;
+  font: 500 19px/1.1 var(--dk-font-display);
+  text-transform: none;
+}
+
+.dk-step__no {
+  font: 400 16px/1 var(--vt-font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.dk-step[aria-pressed="true"] {
+  border-color: var(--vt-keycap);
+  border-width: 3px 3px 1px 1px;
+  background: var(--vt-grad);
+  color: #ffffff;
+}
+
+.dk-step[aria-pressed="true"] .dk-step__no {
+  color: rgb(255 255 255 / 0.85);
+}
+
+/* Program panel (ProgramPanel.tsx): header strip, hatched media well, text column. */
+.vt-panel {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  min-height: 0;
+  border: 1px solid var(--dk-line);
+  background: #ffffff;
+}
+
+.vt-panel__head {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--dk-chart-off);
+  background: var(--dk-bg);
+  font: 500 16px/1 var(--dk-font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.vt-panel__head span {
+  color: var(--dk-muted);
+  font: 400 16px/1 var(--vt-font-mono);
+}
+
+.vt-panel__media {
+  margin: 0;
+  min-height: 0;
+  padding: 20px;
+  border-right: 1px solid var(--dk-chart-off);
+  background: repeating-linear-gradient(135deg, #fbfbfb 0 6px, #ededed 6px 8px);
+}
+
+.vt-panel__media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--dk-line);
+}
+
+.vt-panel__text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 26px;
+}
+
+.vt-panel__desc {
+  font-size: 24px;
+  line-height: 1.3;
+}
+
+.vt-panel__meta {
+  margin-top: auto !important;
+  color: var(--dk-muted);
+  font: 400 16px/1.5 var(--vt-font-mono);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.dk-table td {
+  vertical-align: top;
+}
+
+.dk-table td small {
+  display: block;
+  margin-top: 2px;
+  color: var(--dk-muted);
+  font-size: 16px;
+}
+
+.dk-table tr.dk-hl td small {
+  font-weight: 400;
+}
+
+/* ===== Logo wall grouped by sector. ===== */
+
+.dk-logos {
+  gap: 6px;
+}
+
+.dk-logos__group {
+  padding: 6px 10px 6px 14px;
+  border-top: 1px solid var(--dk-chart-off);
+}
+
+.dk-logos__name {
+  font: 500 16px/1.2 var(--dk-font-display);
+}
+
+.dk-logos__count {
+  font: 400 16px/1.2 var(--vt-font-mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.dk-logos__grid li {
+  display: flex;
+  justify-content: center;
+  border-color: var(--dk-line);
+  background: #ffffff;
+}
+
+.dk-logos__group.dk-hl {
+  box-shadow: inset 4px 0 0 var(--dk-accent);
+}
+
+.dk-logos__group.dk-hl .dk-logos__grid li {
+  border-color: #e7c3c8;
+}
+
+/* ===== Closing set piece: dark ground, pixel tiles, contact block as keycaps. ===== */
+
+.dk-slide--closing .dk-canvas {
+  --vt-dark-line: #20202c;
+  background-color: var(--dk-ink);
+  background-image:
+    linear-gradient(var(--vt-dark-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--vt-dark-line) 1px, transparent 1px);
+  color: #fbfbfb;
+}
+
+.dk-slide--closing .dk-canvas::after {
+  content: none;
+}
+
+.dk-slide--closing .dk-brand img {
+  filter: none;
+}
+
+.dk-slide--closing .dk-brand__name {
+  color: #fbfbfb;
+}
+
+.dk-slide--closing .dk-label {
+  border-color: var(--dk-accent);
+  background: var(--dk-accent);
+  color: #ffffff;
+}
+
+.dk-slide--closing .dk-lead {
+  color: #b9b9c2;
+}
+
+.dk-slide--closing .dk-body {
+  justify-content: flex-start;
+  align-items: stretch;
+  padding-top: 132px;
+}
+
+.dk-slide--closing .dk-title {
+  max-width: 17em;
+  font-size: 50px;
+  line-height: 1.1;
+}
+
+.dk-slide--closing .dk-source {
+  color: #8d8d99;
+}
+
+.dk-contact {
+  gap: 12px;
+}
+
+.dk-contact__item {
+  grid-template-columns: 32px 120px 1fr;
+  align-items: center;
+  padding: 14px 18px;
+  border: 1px solid #3a3a48;
+  border-bottom-width: 3px;
+  border-left-width: 3px;
+  background: #15151f;
+}
+
+.dk-contact__item::before {
+  content: "";
+  width: 28px;
+  height: 28px;
+  background: center / contain no-repeat;
+  filter: brightness(0) invert(1);
+}
+
+.dk-contact__item[data-icon="mail"]::before { background-image: url("assets/icons/mail.svg"); }
+.dk-contact__item[data-icon="message"]::before { background-image: url("assets/icons/message.svg"); }
+.dk-contact__item[data-icon="instagram"]::before { background-image: url("assets/icons/instagram.svg"); }
+.dk-contact__item[data-icon="linkedin"]::before { background-image: url("assets/icons/linkedin.svg"); }
+
+.dk-contact dt {
+  font: 400 16px/1.2 var(--vt-font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.dk-contact dd {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.dk-contact__item.dk-hl {
+  border-color: var(--vt-keycap);
+  border-width: 1px 1px 3px 3px;
+  background: var(--vt-grad);
+}
+
+.dk-contact__item.dk-hl dd {
+  font-size: 26px;
+}
+
+.dk-contact__item.dk-hl dt {
+  opacity: 0.9;
+}
+
+/* Services list beside a table: a quiet column under an ink rule. */
+.vt-services {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 2px solid var(--dk-ink);
+}
+
+.vt-services__head {
+  color: var(--dk-muted);
+  font: 400 16px/1.3 var(--vt-font-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.vt-services ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vt-services li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--dk-line);
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.vt-services li::before {
+  content: "";
+  flex: none;
+  width: 8px;
+  height: 8px;
+  background: var(--dk-accent);
+}
+
+/* Rank cell: mono text, no chip. */
+.vt-rank {
+  font-family: var(--vt-font-mono);
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.vt-table-roomy td {
+  padding-block: 20px;
+}
+
+.dk-slide--closing .dk-body {
+  padding-bottom: 56px;
+}
+
+.vt-table-compact td {
+  padding-block: 7px;
+}
+
+/* Layer 2: vt-genesis. */
+/* vt-genesis: overrides on veterantech. New classes use the vt- prefix.
+   Spacing scale: 8 / 12 / 20 / 28. Content blocks fill the space down to the footer,
+   so no slide ends with a loose gap above it. */
+
+/* ===== Canvas: peach wash on every slide; the member photo only on cover and closing. ===== */
+
+.dk-canvas,
+.dk-slide--cover .dk-canvas,
+.dk-slide--divider .dk-canvas,
+.dk-slide--closing .dk-canvas {
+  background: var(--vt-wash);
+  color: var(--dk-ink);
+}
+
+.dk-slide--cover .dk-canvas,
+.dk-slide--closing .dk-canvas {
+  background:
+    linear-gradient(rgb(251 236 229 / 0.88), rgb(246 222 212 / 0.92)),
+    url("assets/members-wash.jpg") center / cover;
+}
+
+.dk-slide--cover .dk-canvas::after,
+.dk-slide--divider .dk-canvas::after,
+.dk-slide--closing .dk-canvas::after {
+  content: none;
+}
+
+/* ===== Header tab: crest, V mark, KSM Veterantech / Kabinet Genesis. ===== */
+
+.dk-brand,
+.dk-slide--cover .dk-brand,
+.dk-slide--closing .dk-brand {
+  top: 0;
+  bottom: auto;
+  left: 50%;
+  height: 58px;
+  gap: 10px;
+  padding: 0 30px 6px;
+  transform: translateX(-50%);
+  background: #fdf5f1;
+  clip-path: polygon(
+    0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 8px) calc(100% - 16px),
+    calc(100% - 8px) calc(100% - 8px), calc(100% - 16px) calc(100% - 8px),
+    calc(100% - 16px) 100%, 16px 100%, 16px calc(100% - 8px), 8px calc(100% - 8px),
+    8px calc(100% - 16px), 0 calc(100% - 16px)
+  );
+}
+
+.dk-brand::before {
+  content: "";
+  width: 34px;
+  height: 29px;
+  background: url("assets/upnvj.svg") center / contain no-repeat;
+}
+
+.dk-brand img,
+.dk-slide--cover .dk-brand img,
+.dk-slide--closing .dk-brand img,
+.dk-slide--divider .dk-brand img {
+  height: 28px;
+  filter: none;
+}
+
+.dk-brand__name,
+.dk-slide--closing .dk-brand__name {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--dk-accent);
+  font: 400 17px/1 var(--vt-font-mono);
+  letter-spacing: 0;
+}
+
+.dk-brand__name::after {
+  content: "Kabinet Genesis";
+  color: #c98a86;
+  font-size: 12px;
+}
+
+/* ===== Footer: quiet chapter tracker; page number as a keycap box top right. ===== */
+
+.dk-foot,
+.dk-canvas:has(.dk-brand img) .dk-foot {
+  padding-left: var(--dk-pad-x);
+  border-top-color: var(--dk-line);
+  background: transparent;
+}
+
+.dk-track li {
+  border-top-color: #ecd9d3;
+}
+
+.dk-pageno {
+  position: absolute;
+  top: 14px;
+  right: 40px;
+  padding: 7px 14px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  color: var(--dk-accent);
+  font: 400 15px/1 var(--vt-font-mono);
+}
+
+/* ===== Type ===== */
+
+.dk-body {
+  gap: var(--vt-gap);
+}
+
+.dk-label {
+  margin-bottom: -8px !important;
+  border-color: var(--vt-line-accent);
+  border-width: 1px;
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  color: var(--dk-accent);
+}
+
+.dk-title {
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.012em;
+}
+
+.vt-key,
+.dk-title .dk-hl {
+  padding: 0;
+  background: none;
+  color: var(--dk-accent);
+}
+
+.dk-lead {
+  color: #4a4a52;
+}
+
+/* Mono body box from the profile deck: white panel, accent hairline, deep-accent emphasis. */
+.vt-box {
+  padding: 16px 20px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  color: var(--dk-ink);
+  font: 400 17px/1.55 var(--vt-font-mono);
+}
+
+.vt-box em,
+.vt-em {
+  color: var(--vt-accent-deep);
+  font-style: normal;
+}
+
+.vt-chip {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 6px 14px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  color: var(--dk-accent);
+  font: 700 20px/1.15 var(--dk-font-display);
+}
+
+.vt-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vt-tags li {
+  padding: 4px 10px;
+  border: 1px solid var(--dk-line);
+  background: #ffffff;
+  color: var(--dk-ink);
+  font: 400 16px/1.3 var(--vt-font-mono);
+}
+
+/* A block that takes every pixel left above the footer. */
+.vt-fill {
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+/* ===== Stats as profile-deck cards: mono label on top, number under it. ===== */
+
+.dk-stats {
+  gap: var(--vt-gap);
+}
+
+.dk-stat {
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 14px 18px;
+  border: 1px solid var(--vt-line-accent);
+  background-color: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+}
+
+.dk-stat.dk-hl {
+  border-color: var(--dk-accent);
+  background-color: var(--dk-surface);
+}
+
+.dk-stat__label {
+  order: -1;
+  color: #55555e;
+  font: 400 16px/1.3 var(--vt-font-mono);
+}
+
+.dk-stat__value {
+  font-size: var(--dk-size-stat);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+/* ===== Tables on a surface so rows read against the wash. ===== */
+
+.dk-table {
+  border: 1px solid var(--dk-line);
+  background: var(--dk-surface);
+}
+
+.dk-table th,
+.dk-table td {
+  padding-inline: 18px;
+}
+
+.dk-table th {
+  color: var(--dk-accent);
+}
+
+/* ===== About: description and stats share one row; alumni logos under them. ===== */
+
+.vt-about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--vt-gap);
+}
+
+.vt-about.vt-fill {
+  min-height: min-content;
+}
+
+.vt-table-mid td {
+  padding-block: 14px;
+}
+
+.vt-about .vt-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.vt-about .dk-stats {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.vt-logos .dk-logos__group {
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 0;
+  border-top: 0;
+}
+
+.vt-logos .dk-logos__name {
+  flex-direction: row;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.vt-about .dk-stat__value {
+  font-size: 44px;
+}
+
+.vt-about .dk-stat {
+  padding: 12px 18px;
+}
+
+.vt-logos .dk-logos__grid li {
+  padding: 6px 8px;
+  background: #ffffff;
+}
+
+.vt-logos .dk-logos__grid img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ===== Programs: Study Club with its photo on the left, four rows on the right. ===== */
+
+.vt-programs {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 28px;
+}
+
+.vt-prog {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.vt-prog.dk-hl .vt-box {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border: 2px solid var(--dk-accent);
+  font-size: 20px;
+}
+
+.vt-prog-list {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.vt-prog-row {
+  display: grid;
+  grid-template-columns: 184px 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+
+.vt-prog-row .vt-chip {
+  align-self: center;
+  font-size: 18px;
+}
+
+.vt-programs .vt-chip {
+  gap: 8px;
+}
+
+.vt-programs .vt-chip > img {
+  width: auto;
+  height: 1.35em;
+}
+
+.vt-prog-row .vt-box {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+/* ===== Product slides: device mockup on the left, facts on the right, both full height. ===== */
+
+.vt-product {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 28px;
+}
+
+.vt-shot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--dk-line);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+}
+
+.vt-shot img {
+  display: block;
+  max-width: 88%;
+  max-height: 88%;
+  object-fit: contain;
+}
+
+/* Real product UI inside the shot frame: cut components or one product image, plus its URL. */
+
+.vt-ui {
+  position: relative;
+  background: var(--vt-wash);
+}
+
+.vt-ui img {
+  max-width: none;
+  max-height: none;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgb(60 20 25 / 0.06), 0 14px 32px -8px rgb(60 20 25 / 0.18);
+}
+
+.vt-ui--photo img {
+  position: absolute;
+  height: auto;
+}
+
+.vt-ui--photo .vt-ui__photo {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.vt-ui__phone {
+  bottom: 7%;
+  width: 26%;
+  border: 3px solid #ffffff;
+  border-radius: 18px;
+}
+
+.vt-ui__phone--a { right: 33%; bottom: 13%; }
+.vt-ui__phone--b { right: 5%; }
+
+.vt-ui--photo .vt-ui__url {
+  padding: 6px 10px;
+  background: var(--dk-surface);
+}
+
+.vt-ui--single img {
+  width: 90%;
+  height: auto;
+  margin-bottom: 28px;
+}
+
+.vt-ui__url {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  color: var(--vt-accent-deep);
+  font: 400 16px/1 var(--vt-font-mono);
+}
+
+.vt-facts {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: var(--vt-gap);
+  min-height: 0;
+}
+
+.vt-facts--stats-first {
+  grid-template-rows: auto 1fr;
+}
+
+.vt-facts .vt-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.vt-product .dk-stat__value {
+  font-size: 46px;
+}
+
+/* ===== We already use Netra: two cards side by side. ===== */
+
+.vt-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.vt-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+}
+
+.vt-card.dk-hl {
+  border: 2px solid var(--dk-accent);
+}
+
+.vt-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--dk-accent);
+  font: 400 16px/1.2 var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.vt-card__head img {
+  height: 22px;
+  width: auto;
+}
+
+.vt-card ul {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vt-card li {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.vt-card li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  background: var(--dk-accent);
+}
+
+.vt-card li small {
+  display: block;
+  margin-top: 4px;
+  color: #5a5a62;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.vt-card .dk-stats {
+  flex: 1;
+  grid-template-columns: 1fr 1fr;
+}
+
+.vt-card .dk-stat {
+  justify-content: center;
+}
+
+.vt-card .dk-stat__value {
+  font-size: 76px;
+}
+
+.vt-card .dk-stat,
+.vt-card .dk-stat.dk-hl {
+  box-shadow: none;
+}
+
+.vt-card__foot {
+  margin-top: auto !important;
+  padding-top: 14px;
+  border-top: 1px solid var(--dk-line);
+  color: #4a4a52;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* ===== Gateway flow: three nodes with pixel chevrons between them. ===== */
+
+.vt-flow {
+  display: grid;
+  grid-template-columns: 1fr 36px 1.35fr 36px 1fr;
+  gap: 10px;
+}
+
+.vt-flow > .vt-arrow {
+  align-self: center;
+  height: 32px;
+  background: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+}
+
+.vt-node {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 22px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+}
+
+.vt-node.dk-hl {
+  border: 2px solid var(--dk-accent);
+}
+
+.vt-node__k {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--dk-accent);
+  font: 400 16px/1.2 var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.vt-node__k img {
+  height: 20px;
+  width: auto;
+}
+
+.vt-node__t {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.vt-node__d {
+  color: #4a4a52;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.vt-node ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.vt-node li {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 8px;
+}
+
+.vt-node li::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  margin-top: 7px;
+  background: var(--dk-accent);
+}
+
+.vt-row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--vt-gap);
+}
+
+/* ===== Review timeline: week keycap plus one line, rows share the column height. ===== */
+
+.vt-measure {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 28px;
+}
+
+.vt-measure .dk-table {
+  height: 100%;
+}
+
+.vt-measure .dk-table td {
+  vertical-align: middle;
+}
+
+.vt-measure .dk-table td:last-child {
+  white-space: nowrap;
+}
+
+.vt-measure .dk-table th[scope="row"] {
+  border-bottom: 1px solid var(--dk-line);
+  vertical-align: middle;
+  color: var(--dk-accent);
+  font: 400 16px/1.2 var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.vt-timeline {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vt-timeline li {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 10px 18px;
+  border: 1px solid var(--dk-line);
+  background: var(--dk-surface);
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.vt-timeline b {
+  color: var(--dk-accent);
+  font: 400 16px/1.2 var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.vt-timeline li.dk-hl {
+  border: 2px solid var(--dk-accent);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+}
+
+/* ===== Cover: centred like the profile deck, social strip at the bottom. ===== */
+
+.dk-slide--cover .dk-body {
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 92px var(--dk-pad-x) 110px;
+  text-align: center;
+}
+
+.vt-kicker {
+  padding: 6px 18px;
+  background: var(--vt-grad);
+  color: #ffffff;
+  font: 400 20px/1.2 var(--vt-font-mono);
+  letter-spacing: 0.02em;
+  transform: rotate(-2deg);
+}
+
+.vt-lockup {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.dk-slide--cover .dk-title {
+  max-width: none;
+  font-size: 84px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
+}
+
+.vt-cover-x {
+  color: #b9a39f;
+  font: 400 64px/1 var(--dk-font-display);
+}
+
+.vt-cover-partner {
+  display: block;
+  height: 70px;
+  width: auto;
+}
+
+.dk-slide--cover .dk-lead {
+  max-width: 44ch;
+  color: var(--vt-accent-deep);
+  font: 400 22px/1.45 var(--vt-font-mono);
+}
+
+.vt-social {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 56px;
+  margin: 0;
+  padding: 0 40px;
+  list-style: none;
+  background: var(--dk-surface);
+  color: var(--vt-accent-deep);
+  font: 400 17px/1 var(--vt-font-mono);
+}
+
+.vt-social li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vt-social img {
+  width: auto;
+  height: 22px;
+}
+
+/* ===== Divider: wash on the left, member photo on the right. ===== */
+
+.dk-slide--divider .dk-label,
+.dk-slide--closing .dk-label {
+  border-color: var(--dk-accent);
+  background: var(--dk-accent);
+  color: #ffffff;
+}
+
+.dk-slide--divider .dk-title {
+  font-size: 50px;
+  line-height: 1.08;
+}
+
+.dk-slide--divider .dk-lead {
+  color: #4a4a52;
+}
+
+.dk-media-panel {
+  border-left: 0;
+}
+
+.dk-media-panel figcaption {
+  border-color: var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  color: var(--dk-accent);
+  font-size: 16px;
+}
+
+.dk-contents {
+  border-top-color: var(--dk-accent);
+}
+
+/* ===== Closing: light, like the profile deck's last page; ask list beside the contacts. ===== */
+
+.dk-slide--closing .dk-body {
+  justify-content: center;
+  padding-top: 92px;
+  padding-bottom: 56px;
+}
+
+.dk-slide--closing .dk-title {
+  max-width: none;
+  font-size: 44px;
+}
+
+.dk-slide--closing .dk-source {
+  color: #6a6a72;
+}
+
+.vt-close {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 28px;
+  width: 100%;
+}
+
+.vt-close__side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vt-close__pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  color: #b9a39f;
+  font: 400 26px/1 var(--dk-font-display);
+}
+
+.vt-close__pair img {
+  height: 30px;
+  width: auto;
+}
+
+.dk-contact {
+  gap: 12px;
+}
+
+.dk-contact__item {
+  grid-template-columns: 28px 96px 1fr;
+  padding: 12px 18px;
+  border-color: var(--vt-line-accent);
+  border-width: 1px;
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  color: var(--dk-ink);
+}
+
+.dk-contact__item::before {
+  filter: none;
+}
+
+.dk-slide--closing .dk-contact dd {
+  font-size: 19px;
+}
+
+.dk-contact__item[data-icon="mail"]::before { background-image: url("assets/icons/mail.svg"); }
+.dk-contact__item[data-icon="instagram"]::before { background-image: url("assets/icons/instagram.svg"); }
+.dk-contact__item[data-icon="linkedin"]::before { background-image: url("assets/icons/linkedin.svg"); }
+
+/* The ask: three numbered keycap rows. */
+.vt-asks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: vt-ask;
+}
+
+.vt-asks li {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 4px 12px;
+  padding: 14px 18px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+  counter-increment: vt-ask;
+}
+
+.vt-asks li::before {
+  content: "0" counter(vt-ask);
+  grid-row: span 2;
+  color: var(--dk-accent);
+  font: 400 22px/1.2 var(--vt-font-mono);
+}
+
+.vt-asks b {
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.vt-asks span {
+  color: #4a4a52;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.vt-asks li.dk-hl {
+  border: 2px solid var(--dk-accent);
+}
+
+/* ===== Entrances: replay whenever a slide becomes active. Print and the renderer
+   drop all animation, so the PDF always shows the settled state. ===== */
+
+@keyframes vt-rise {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+@keyframes vt-lift {
+  from { opacity: 0; transform: translateY(28px); }
+}
+
+@keyframes vt-join {
+  from { opacity: 0; transform: translateX(16px); }
+}
+
+@keyframes vt-pass {
+  from { opacity: 0; transform: translateX(-10px); }
+}
+
+@keyframes vt-fade {
+  from { opacity: 0; }
+}
+
+@keyframes vt-settle {
+  from { opacity: 0; transform: scale(1.06); }
+}
+
+@keyframes vt-wipe {
+  from { clip-path: inset(0 0 0 100%); }
+}
+
+@keyframes vt-dock {
+  from { transform: translateY(100%); }
+}
+
+/* Every slide: label, then title, then its blocks in reading order. */
+
+.dk-slide.is-active .dk-body > .dk-label {
+  animation: vt-fade 300ms var(--vt-ease-out) both;
+}
+
+.dk-slide.is-active .dk-body > .dk-title {
+  animation: vt-rise 480ms var(--vt-ease-out) 40ms both;
+}
+
+.dk-body :nth-child(2) { --vt-i: 1; }
+.dk-body :nth-child(3) { --vt-i: 2; }
+.dk-body :nth-child(4) { --vt-i: 3; }
+.dk-body :nth-child(5) { --vt-i: 4; }
+.dk-body :nth-child(6) { --vt-i: 5; }
+.dk-body :nth-child(7) { --vt-i: 6; }
+.dk-body :nth-child(8) { --vt-i: 7; }
+.dk-body :nth-child(9) { --vt-i: 8; }
+.dk-body :nth-child(10) { --vt-i: 9; }
+
+.dk-slide.is-active :is(.dk-stats > .dk-stat, .vt-prog-list > *, .vt-prog, .dk-contents > li, .vt-asks > li, .dk-contact > *, .vt-pair > *, .vt-row2 > *, .vt-timeline > li, .dk-table tbody > tr, .vt-about > .vt-box, .vt-facts > .vt-box) {
+  animation: vt-rise 460ms var(--vt-ease-out) both;
+  animation-delay: calc(200ms + var(--vt-i, 0) * 60ms);
+}
+
+.dk-slide.is-active :is(.dk-logos, .dk-note, .dk-source, .vt-tags, .vt-close__pair) {
+  animation: vt-fade 500ms var(--vt-ease-out) 480ms both;
+}
+
+/* Cover: Veterantech settles, Netra joins, then the lead and the social strip. */
+
+.dk-slide.is-active .vt-kicker {
+  animation: vt-fade 300ms var(--vt-ease-out) both;
+}
+
+.dk-slide.is-active .vt-lockup > .dk-title {
+  animation: vt-rise 420ms var(--vt-ease-out) 60ms both;
+}
+
+.dk-slide.is-active .vt-cover-x {
+  animation: vt-fade 300ms var(--vt-ease-out) 240ms both;
+}
+
+.dk-slide.is-active .vt-cover-partner {
+  animation: vt-join 460ms var(--vt-ease-out) 320ms both;
+}
+
+.dk-slide--cover.is-active .dk-lead {
+  animation: vt-rise 420ms var(--vt-ease-out) 480ms both;
+}
+
+.dk-slide.is-active .vt-social {
+  animation: vt-dock 520ms var(--vt-ease-out) 560ms both;
+}
+
+/* Divider: the member photo wipes in from the right while the text rises. */
+
+.dk-slide--divider.is-active .dk-lead {
+  animation: vt-rise 420ms var(--vt-ease-out) 140ms both;
+}
+
+.dk-slide.is-active .dk-media-panel {
+  animation: vt-wipe 800ms var(--vt-ease-in-out) 80ms both;
+}
+
+/* Product shots: the event photo settles, the phones lift in on top of it. */
+
+.dk-slide.is-active .vt-ui__photo {
+  animation: vt-settle 900ms var(--vt-ease-out) 120ms both;
+}
+
+.dk-slide.is-active .vt-ui__phone--a {
+  animation: vt-lift 560ms var(--vt-ease-out) 380ms both;
+}
+
+.dk-slide.is-active .vt-ui__phone--b {
+  animation: vt-lift 560ms var(--vt-ease-out) 460ms both;
+}
+
+.dk-slide.is-active .vt-ui--single img {
+  animation: vt-rise 520ms var(--vt-ease-out) 180ms both;
+}
+
+/* Gateway flow: the request path reveals left to right. */
+
+.dk-slide.is-active .vt-flow > .vt-node {
+  animation: vt-rise 400ms var(--vt-ease-out) both;
+}
+
+.dk-slide.is-active .vt-flow > .vt-arrow {
+  animation: vt-pass 300ms var(--vt-ease-out) both;
+}
+
+.dk-slide.is-active .vt-flow > :nth-child(1) { animation-delay: 200ms; }
+.dk-slide.is-active .vt-flow > :nth-child(2) { animation-delay: 340ms; }
+.dk-slide.is-active .vt-flow > :nth-child(3) { animation-delay: 420ms; }
+.dk-slide.is-active .vt-flow > :nth-child(4) { animation-delay: 560ms; }
+.dk-slide.is-active .vt-flow > :nth-child(5) { animation-delay: 640ms; }
+
+/* The runtime already shortens reduced-motion animations to ~0ms; drop the delays
+   too so nothing sits invisible before it appears. */
+@media (prefers-reduced-motion: reduce) {
+  .dk-slide.is-active * {
+    animation-delay: 0s !important;
+  }
+}

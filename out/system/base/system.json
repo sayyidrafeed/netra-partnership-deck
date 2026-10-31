@@ -1,0 +1,8 @@
+{
+  "name": "base",
+  "description": "Neutral foundation: the slide frame, footer, layouts, table, stats, notes, two columns and simple charts. Use it directly for plain decks or extend it.",
+  "extends": null,
+  "brand": "",
+  "logo": "",
+  "fonts": []
+}
