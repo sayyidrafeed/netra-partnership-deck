@@ -1145,6 +1145,15 @@
   gap: 8px;
 }
 
+.vt-mentors__list img {
+  width: auto;
+  height: 22px;
+}
+
+.vt-mentors__list li:has(img)::before {
+  display: none;
+}
+
 .vt-mentors__list li::before {
   content: "";
   width: 7px;
