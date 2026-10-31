@@ -1393,6 +1393,87 @@
   line-height: 1.4;
 }
 
+/* ===== Who gets in: the recommended path (two linked cards), then two quieter options. ===== */
+
+.vt-tracks {
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 28px;
+}
+
+.vt-tracks__group {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 12px;
+  min-height: 0;
+}
+
+.vt-tracks__label {
+  margin: 0;
+  color: var(--dk-accent);
+  font: 400 16px/1.2 var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.vt-tracks__row {
+  display: grid;
+  grid-template-columns: 1fr 36px 1fr;
+  gap: 10px;
+  min-height: 0;
+}
+
+.vt-tracks__group--alt .vt-tracks__row {
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.vt-tracks__row > .vt-arrow {
+  align-self: center;
+  height: 32px;
+  background: url("assets/icons/chevron-right.svg") center / contain no-repeat;
+}
+
+.vt-track {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 22px;
+  border: 1px solid var(--vt-line-accent);
+  background: var(--dk-surface);
+  box-shadow: -3px 3px 0 var(--vt-shadow);
+}
+
+.vt-track.dk-hl {
+  border: 2px solid var(--dk-accent);
+}
+
+.vt-tracks__group--alt .vt-track {
+  border-style: dashed;
+  box-shadow: none;
+  background: rgb(255 250 248 / 0.6);
+}
+
+.vt-track__k {
+  margin: 0;
+  color: var(--dk-accent);
+  font: 400 16px/1.2 var(--vt-font-mono);
+  text-transform: uppercase;
+}
+
+.vt-track__t {
+  margin: 0;
+  font: 700 24px/1.15 var(--dk-font-display);
+  letter-spacing: -0.01em;
+}
+
+.vt-track__d {
+  margin: 0;
+  color: #4a4a52;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
 /* ===== Gateway flow: three nodes with pixel chevrons between them. ===== */
 
 .vt-flow {
@@ -1826,13 +1907,21 @@
 .dk-body :nth-child(9) { --vt-i: 8; }
 .dk-body :nth-child(10) { --vt-i: 9; }
 
-.dk-slide.is-active :is(.dk-stats > .dk-stat, .vt-prog-list > *, .vt-prog, .dk-contents > li, .vt-asks > li, .dk-contact > *, .vt-pair > *, .vt-row2 > *, .vt-timeline > li, .dk-table tbody > tr, .vt-about > .vt-box, .vt-facts > .vt-box) {
+.dk-slide.is-active :is(.vt-tracks__row > .vt-track, .dk-stats > .dk-stat, .vt-prog-list > *, .vt-prog, .dk-contents > li, .vt-asks > li, .dk-contact > *, .vt-pair > *, .vt-row2 > *, .vt-timeline > li, .dk-table tbody > tr, .vt-about > .vt-box, .vt-facts > .vt-box) {
   animation: vt-rise 460ms var(--vt-ease-out) both;
   animation-delay: calc(200ms + var(--vt-i, 0) * 60ms);
 }
 
 .dk-slide.is-active :is(.dk-logos, .dk-note, .dk-source, .vt-tags, .vt-close__pair) {
   animation: vt-fade 500ms var(--vt-ease-out) 480ms both;
+}
+
+.dk-slide.is-active .vt-tracks__row > .vt-arrow {
+  animation: vt-pass 300ms var(--vt-ease-out) 300ms both;
+}
+
+.dk-slide.is-active .vt-tracks__group--alt .vt-track {
+  animation-delay: calc(460ms + var(--vt-i, 0) * 60ms);
 }
 
 /* Cover: Veterantech settles, Netra joins, then the lead and the social strip. */
