@@ -1132,7 +1132,7 @@
 .vt-mentors__list {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 20px;
+  gap: 8px 18px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1152,6 +1152,10 @@
 
 .vt-mentors__list li:has(img)::before {
   display: none;
+}
+
+.vt-mentors__word img {
+  height: 24px;
 }
 
 .vt-mentors__list li::before {
